@@ -1,3 +1,4 @@
 # BizTime
-# BizTime
-# BizTime
+
+Springboard 
+Node, Express, and PostgreSQL exercise.
