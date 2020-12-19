@@ -1,13 +1,18 @@
 /** BizTime express application. */
 
-
 const express = require("express");
-
-const app = express();
 const ExpressError = require("./expressError")
+const companyRoute = require('./routes/companies')
+const morgan = require('morgan')
+const app = express();
 
+app.use(morgan('dev'));
 app.use(express.json());
 
+app.get('/', (req,res,next)=>{
+  return res.json('Homepage')
+})
+app.use('/companies', companyRoute)
 
 /** 404 handler */
 
@@ -23,7 +28,6 @@ app.use((err, req, res, next) => {
 
   return res.json({
     error: err,
-    message: err.message
   });
 });
 
