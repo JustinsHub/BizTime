@@ -5,10 +5,11 @@ const db = require('../db')
 
 let testCompany;
 
+
 beforeEach(async ()=>{
-    const result = await db.query(`INSERT INTO companies (code, name, description)
+    const company = await db.query(`INSERT INTO companies (code, name, description)
                                     VALUES ('Dogs', 'Dexter', 'GoldenDoodle') RETURNING code, name, description`)
-    testCompany = result.rows[0]
+    testCompany = company.rows[0]
 })
 
 afterEach(async ()=>{
@@ -19,6 +20,7 @@ afterAll(async ()=>{
     await db.end()
 })
 
+//Company Routes Test
 describe('GET /companies', ()=>{
     test('Get all companies', async ()=>{
         const res = await request(app).get('/companies')
@@ -70,3 +72,4 @@ describe('DELETE /companies/:code', ()=>{
         expect(res.statusCode).toBe(404)
     })
 })
+

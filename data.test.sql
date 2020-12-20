@@ -23,3 +23,9 @@ CREATE TABLE invoices (
     CONSTRAINT invoices_amt_check CHECK ((amt > (0)::double precision))
 );
 
+INSERT INTO companies
+  VALUES ('apple', 'Apple Computer', 'Maker of OSX.'),
+        ('ibm', 'IBM', 'Big blue.');
+
+INSERT INTO invoices (comp_code, amt, paid, paid_date)
+  VALUES ('apple', 100, false, null)
