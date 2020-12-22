@@ -16,11 +16,14 @@ router.get('/', async (req, res, next)=>{
 router.get('/:code', async (req, res, next)=>{
     try{
     const {code} = req.params
-    const results = await db.query('SELECT * FROM companies WHERE code=$1', [code])
-    if(results.rows.length === 0){
+    const companies = await db.query('SELECT * FROM companies WHERE code=$1', [code])
+    const industry = await db.query('SELECT industry FROM industries WHERE company_code=$1', [code]) // looking for the same code(req.params)
+    if(companies.rows.length === 0){
         throw new ExpressError(`${code} can't be found`, 404)
     }
-    return res.json({company: results.rows[0]})
+    const compResults = companies.rows[0]
+    compResults.industry = industry.rows
+    return res.json({company: compResults})
     }catch(err){
         next(err)
     }

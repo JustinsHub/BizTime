@@ -4,6 +4,7 @@ const express = require("express");
 const ExpressError = require("./expressError")
 const companyRoute = require('./routes/companies')
 const invoiceRoute = require('./routes/invoices')
+const industryRoute = require('./routes/industries')
 const morgan = require('morgan')
 const app = express();
 
@@ -16,8 +17,8 @@ app.get('/', (req,res,next)=>{
 })
 //Routes
 app.use('/companies', companyRoute)
-
 app.use('/invoices', invoiceRoute)
+app.use('/industries', industryRoute)
 
 /** 404 handler */
 
